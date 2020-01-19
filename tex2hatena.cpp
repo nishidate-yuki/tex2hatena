@@ -7,10 +7,12 @@ int main(){
 
 
     while(1){
+        ///// Input /////
         cout << "---Input tex---" << endl;
         string str;
         getline(cin, str);
 
+        ///// Setting /////
         if(str == "set"){
             string il;
             cout << "Convert for Inline?(y/n):";
@@ -23,15 +25,21 @@ int main(){
             continue;
         }
 
+        ///// Convert /////
         cout << "---Hatena---" << endl;
-        
+
         if(isInline) cout << "[tex: ";
         else         cout << "$$" << endl;
 
+        char prev = ' ';
         for(int i=0; i<str.size(); i++){
-            if(str[i] == '_' || str[i] == '^')
+            if(str[i]=='_' || str[i]=='^' || str[i]=='[' || str[i]==']')
                 cout << '\\';
+            if(prev=='\\' && (str[i]=='{' || str[i]=='}')){
+                cout << '\\';
+            }
             cout << str[i];
+            prev = str[i];
         }
 
         if(isInline) cout << " ]" << endl << endl;
